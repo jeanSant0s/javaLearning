@@ -8,6 +8,10 @@ public class Personagem {
 	String tipoFisico;
 	boolean possuiBigode;
 
+	Personagem() {
+
+	}
+
 	String getNome() {
 		return this.nome;
 	}
@@ -68,6 +72,22 @@ public class Personagem {
 
 	BolaFogo atirarFogo() {
 		// implementação aqui
+		return new BolaFogo();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Personagem) {
+			Personagem p = (Personagem) obj;
+			return this.nome.equals(p.getNome());
+		}
+
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Nome do personagem: " + this.nome;
 	}
 
 }
