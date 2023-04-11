@@ -39,9 +39,9 @@ public class Beneficiario {
 	public void setDependente(Beneficiario dependente) {
 		this.dependente = dependente;
 	}
-	
+
 	private void idade() {
-		
+
 	}
 
 }
