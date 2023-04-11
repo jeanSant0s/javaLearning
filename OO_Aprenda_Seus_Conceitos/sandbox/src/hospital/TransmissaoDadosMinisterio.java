@@ -12,6 +12,7 @@ public class TransmissaoDadosMinisterio implements IDemonstrativoOperacional {
 		Procedimento[] procedimentos = new Procedimento[] { new Parto() };
 
 		return procedimentos;
+
 	}
 
 }
