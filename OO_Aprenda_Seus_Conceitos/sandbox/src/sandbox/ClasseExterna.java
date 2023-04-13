@@ -8,4 +8,5 @@ public class ClasseExterna {
 			System.out.println(ClasseExterna.this.x);
 		}
 	}
+
 }
