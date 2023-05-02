@@ -1,6 +1,6 @@
 package javaOito;
 
-class Usuario {
+public class Usuario {
 	private String nome;
 	private int pontos;
 	private boolean moderador;
@@ -12,21 +12,19 @@ class Usuario {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public int getPontos() {
-		return pontos;
+		return this.pontos;
 	}
 
 	public void tornaModerador() {
 		this.moderador = true;
-		System.out.println(this.nome + " agora é moderador!");
 	}
 
 	public boolean isModerador() {
-		return this.moderador;
-
+		return moderador;
 	}
 
 }

@@ -1,70 +1,57 @@
 package javaOito;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Main {
 	public static void main(String[] args) {
-		Usuario jean = new Usuario("Jean", 100);
-		Usuario carlos = new Usuario("Carlos", 200);
-		Usuario santos = new Usuario("Santos", 300);
+		Usuario user1 = new Usuario("Jean", 150);
+		Usuario user2 = new Usuario("Carlos", 120);
+		Usuario user3 = new Usuario("Santos", 190);
 
-		List<Usuario> usuarios = new <Usuario>ArrayList();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
 
-		usuarios.add(jean);
-		usuarios.add(carlos);
-		usuarios.add(santos);
+		usuarios.add(user1);
+		usuarios.add(user2);
+		usuarios.add(user3);
 
-		System.out.println("Usando o for normal:");
+		System.out.println("for comum:");
 		for (Usuario u : usuarios) {
 			System.out.println(u.getNome());
 		}
 
-		System.out.println("\nUsando forEach e a classe Consumer:");
-		Mostrador mostrador = new Mostrador();
-		usuarios.forEach(mostrador);
+		System.out.println("\nforEach com classe comum:");
+		Mostrador mostradorComum = new Mostrador();
+		usuarios.forEach(mostradorComum);
 
-		System.out.println("\nUsando forEach e a classe Consumer anônima:");
-		Consumer<Usuario> mostradorAnonimo = new Consumer<Usuario>() {
-
-			@Override
-			public void accept(Usuario t) {
-				System.out.println(t.getNome());
+		System.out.println("\nforEach com classe anônima:");
+		usuarios.forEach(new Consumer<Usuario>() {
+			public void accept(Usuario u) {
+				System.out.println(u.getNome());
 			}
-		};
-		usuarios.forEach(mostradorAnonimo);
+		});
 
-		System.out.println("\nUsando forEach e um lambda:");
-		Consumer<Usuario> mostradorLambda = u -> System.out.println(u.getNome());
+		System.out.println("\nforEach com mostrador lambda:");
+		Consumer<Usuario> mostradorLambda = (Usuario u) -> {
+			System.out.println(u.getNome());
+		};
 		usuarios.forEach(mostradorLambda);
 
-		System.out.println("\nUsando forEach e um lambda em uma única linha:");
+		System.out.println("\nforEach com lambda simplificado:");
 		usuarios.forEach(u -> System.out.println(u.getNome()));
 
-		System.out.println("\nPromovendo todos os usuários em uma única linha:");
+		System.out.println("\nFazendo todos os usuários virarem moderadores com forEach e lambda simplificado...");
 		usuarios.forEach(u -> u.tornaModerador());
 
-		System.out.println("\nExemplo de default method: andThen");
-		Consumer<Usuario> mostraMensagem = u -> System.out.println("Antes de imprimir os nomes:");
-		Consumer<Usuario> imprimeNome = u -> System.out.println(u.getNome());
-		usuarios.forEach(mostraMensagem.andThen(imprimeNome));
+		System.out.println("\nUsando um forEach com .andThen:");
+		Consumer<Usuario> mostraPontos = t -> System.out.println(t.getPontos());
+		usuarios.forEach(mostradorLambda.andThen(mostraPontos));
 
-		System.out.println("\nExemplo de uso do removeIf:");
-		usuarios.removeIf(u -> u.getPontos() < 150);
-		usuarios.forEach(u -> System.out.println(u.getNome()));
-
-		Comparator<Usuario> comparatorAnonimo = new Comparator<Usuario>() {
-
-			@Override
-			public int compare(Usuario u1, Usuario u2) {
-				return u1.getNome().compareTo(u2.getNome());
-			}
-
-		};
-
-		Comparator<Usuario> comparatorLambda = (u1, u2) -> u1.getNome().compareTo(u2.getNome());
-
+		System.out.println("\nUsando o removeIf e o Predicate:");
+		Predicate<Usuario> predicado = v -> v.getPontos() <= 120;
+		usuarios.removeIf(predicado);
+		usuarios.forEach(mostraPontos);
 	}
 }
